@@ -75,7 +75,15 @@ var Shop = {
         button: document.querySelector('#gsmStoresButton')
     },
 
-
+    ShoeShops: {
+        count: 0,
+        cost: 25000,
+        startingCost: 25000,
+        moneyAdd: 15000,
+        income: 325,
+        element: document.querySelector('#shoeShopsDescription'),
+        button: document.querySelector('#shoeShopsButton')
+    }
 };
 
 // Initializing the buy function
@@ -94,7 +102,7 @@ function buy(what) {
 function update() {
     moneyElement.innerHTML = `Your money: ${money} $`;
 
-    moneyPerSecond = (Shop.Workers.count * Shop.Workers.income + Shop.SouvenirShops.count * Shop.SouvenirShops.income + Shop.BookStores.count * Shop.BookStores.income + Shop.ClothesShops.count * Shop.ClothesShops.income + Shop.GsmStores.count * Shop.GsmStores.income) * moneyPercentage - returnPerSecond;
+    moneyPerSecond = (Shop.Workers.count * Shop.Workers.income + Shop.SouvenirShops.count * Shop.SouvenirShops.income + Shop.BookStores.count * Shop.BookStores.income + Shop.ClothesShops.count * Shop.ClothesShops.income + Shop.GsmStores.count * Shop.GsmStores.income + Shop.ShoeShops.count * Shop.ShoeShops.income) * moneyPercentage - returnPerSecond;
     moneyPerSecondElement.innerHTML = `Money per second: ${moneyPerSecond} $`;
 
     moneyPercentageElement.innerHTML = `Money percentage: ${moneyPercentage * 100} %`;
@@ -113,6 +121,8 @@ function update() {
     Shop.ClothesShops.element.innerHTML = `Clothes shops give you 150 $ per second. They cost ${Shop.ClothesShops.cost} $. You currently have ${Shop.ClothesShops.count} clothes shops. This item must be unlocked.`;
     
     Shop.GsmStores.element.innerHTML = `GSM stores give you 250 $ per second. They cost ${Shop.GsmStores.cost} $. You currently have ${Shop.GsmStores.count} GSM stores. This item must be unlocked.`;
+
+    Shop.ShoeShops.element.innerHTML = `Shoe shops give you 325 $ per second. They cost ${Shop.ShoeShops.cost} $. You currently have ${Shop.ShoeShops.count} shoes shops. This item must be unlocked.`;
 
     if (Shop.Workers.count >= 10) {
         Shop.SouvenirShops.button.disabled = false;
@@ -134,6 +144,11 @@ function update() {
     } else {
         Shop.GsmStores.button.disabled = true;
     }
+    if (Shop.GsmStores.count >= 10) {
+        Shop.ShoeShops.button.disabled = false;
+    } else {
+        Shop.ShoeShops.button.disabled = true;
+    }
 
     if (!checkedCosts) {
         Shop.Workers.cost = Shop.Workers.startingCost + Shop.Workers.count * Shop.Workers.moneyAdd;
@@ -141,6 +156,7 @@ function update() {
         Shop.BookStores.cost = Shop.BookStores.startingCost + Shop.BookStores.count * Shop.BookStores.moneyAdd;
         Shop.ClothesShops.cost = Shop.ClothesShops.startingCost + Shop.ClothesShops.count * Shop.ClothesShops.moneyAdd;
         Shop.GsmStores.cost = Shop.GsmStores.startingCost + Shop.GsmStores.count * Shop.GsmStores.moneyAdd;
+        Shop.ShoeShops.cost = Shop.ShoeShops.startingCost + Shop.ShoeShops.count * Shop.ShoeShops.moneyAdd;
         
         checkedCosts = true;
     }
