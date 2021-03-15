@@ -126,31 +126,6 @@ function update() {
 
     Shop.ShoeShops.element.innerHTML = `Shoe shops give you 325 $ per second. They cost ${Shop.ShoeShops.cost} $. You currently have ${Shop.ShoeShops.count} shoes shops. This item must be unlocked.`;
 
-    // if (Shop.Workers.count >= 10) {
-    //     Shop.SouvenirShops.button.disabled = false;
-    // } else {
-    //     Shop.SouvenirShops.button.disabled = true;
-    // }
-    // if (Shop.SouvenirShops.count >= 10) {
-    //     Shop.BookStores.button.disabled = false;
-    // } else {
-    //     Shop.BookStores.button.disabled = true;
-    // }
-    // if (Shop.BookStores.count >= 10) {
-    //     Shop.ClothesShops.button.disabled = false;
-    // } else {
-    //     Shop.ClothesShops.button.disabled = true;
-    // }
-    // if (Shop.ClothesShops.count >= 10) {
-    //     Shop.GsmStores.button.disabled = false;
-    // } else {
-    //     Shop.GsmStores.button.disabled = true;
-    // }
-    // if (Shop.GsmStores.count >= 10) {
-    //     Shop.ShoeShops.button.disabled = false;
-    // } else {
-    //     Shop.ShoeShops.button.disabled = true;
-    // }
     for (let i = 0; i < Object.values(Shop).length - 1; i++) {
         if (i != 0 && i != 1) {
             if (Object.values(Shop)[i].count >= 10) {
