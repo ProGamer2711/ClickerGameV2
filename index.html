@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Game V2</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="./ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./ico/favicon-16x16.png">
+    <link rel="manifest" href="./ico/site.webmanifest">
+</head>
+<body>
+    <div id="header">
+        <h1>Clicker Game V2 Beta</h1>
+        
+        <p>Welcome, player. You have a retail bussines where you sell all kinds of stuff. From car parts and tech to books, clothes, trips etc. Your goal is to build a giant robot. You get money by clicking the button. You can use your money to upgrade or build parts of the robot. Good luck, have fun. <br> Note: Some items may need to be unlocked by purchasing 10 of the previous items.</p>
+    </div>
+
+    <hr>
+
+    <div id="save">
+        <p>You can use the buttons below to save or load your game using a username. Saves last forever. <br>
+            If you make a new save the old one will be overwritten.</p>
+        <button>Save Game</button><br>
+        <button>Load Game</button><br>
+        <button onclick="if(confirm('Are you sure you want to exit? All unsaved progress will be lost.')) location = String(location).split('?')[0]">Log Out</button><br>
+    </div>
+
+    <hr>
+
+    <div id="navigation">
+        lol
+    </div>
+
+    <hr>
+
+    <div id="moneyStats">
+        <h3 id="money">Your money: 0 $</h3>
+
+        <p id="moneyPerClick">Money per click: 1 $</p>
+
+        <p id="moneyPerSecond">Money per second: 0 $</p>
+
+        <p id="moneyPercentage">Money percentage: 100 %</p>
+
+        <button onclick="moneyAdd();">Click for money!</button>
+    </div>
+
+    <hr>
+
+    <div id="workerDiv">
+        <p id="workersDescription">Workers give you 5 $ per second. They cost 100 $. You currently have 0 workers.</p>
+        
+        <button onclick="buy('Workers');">Hire worker</button>
+    </div>
+
+    <div id="clickUpgradeDiv">
+        <p id="clickUpgradesDescription">Click upgrades give you more money per click. They cost 150 $. You currently have 1 click upgrade.</p>
+        
+        <button onclick="buy('ClickUpgrades');">Buy click upgrade</button>
+    </div>
+
+    <div id="souvenirShopDiv">
+        <p id="souvenirShopsDescritption">Souvenir shops give you 25 $ per second. They cost 4000 $. You currently have 0 souvenir shops. This item must be unlocked.</p>
+        
+        <button onclick="buy('SouvenirShops');" id="souvenirShopsButton" disabled>Buy souvenir shop</button>
+    </div>
+
+    <div id="bookStoreDiv">
+        <p id="bookStoresDescription">Book stores give you 50 $ per second. They cost 9000 $. You currently have 0 book stores. This item must be unlocked.</p>
+        
+        <button onclick="buy('BookStores');" id="bookStoresButton" disabled>Buy book store</button>
+    </div>
+
+    <div id="clothesShopDiv">
+        <p id="clothesShopsDescription">Clothes shops give you 150 $ per second. They cost 14500 $. You currently have 0 clothes shops. This item must be unlocked.</p>
+        
+        <button onclick="buy('ClothesShops');" id="clothesShopsButton" disabled>Buy clothes shop</button>
+    </div>
+
+    <div id="gsmStoreDiv">
+        <p id="gsmStoresDescription">GSM stores give you 250 $ per second. They cost 20000 $. You currently have 0 GSM stores. This item must be unlocked.</p>
+        
+        <button onclick="buy('GsmStores');" id="gsmStoresButton" disabled>Buy GSM store</button>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
