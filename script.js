@@ -4,7 +4,6 @@ var moneyPerClick = 1;
 var moneyPerSecond = 0;
 var moneyPercentage = 1.00;
 var rebirthCost = 500000;
-var returnPerSecond = 0;
 // Elements
 var moneyElement = document.querySelector('#money');
 var moneyPerSecondElement = document.querySelector('#moneyPerSecond');
@@ -104,7 +103,7 @@ function buy(what) {
 function update() {
     moneyElement.innerHTML = `Your money: ${money} $`;
 
-    moneyPerSecond = (Shop.Workers.count * Shop.Workers.income + Shop.SouvenirShops.count * Shop.SouvenirShops.income + Shop.BookStores.count * Shop.BookStores.income + Shop.ClothesShops.count * Shop.ClothesShops.income + Shop.GsmStores.count * Shop.GsmStores.income + Shop.ShoeShops.count * Shop.ShoeShops.income) * moneyPercentage - returnPerSecond;
+    moneyPerSecond = (Shop.Workers.count * Shop.Workers.income + Shop.SouvenirShops.count * Shop.SouvenirShops.income + Shop.BookStores.count * Shop.BookStores.income + Shop.ClothesShops.count * Shop.ClothesShops.income + Shop.GsmStores.count * Shop.GsmStores.income + Shop.ShoeShops.count * Shop.ShoeShops.income) * moneyPercentage;
     moneyPerSecondElement.innerHTML = `Money per second: ${moneyPerSecond} $`;
 
     moneyPercentageElement.innerHTML = `Money percentage: ${moneyPercentage * 100} %`;
@@ -168,6 +167,38 @@ function rebirth() {
         checkedCosts = false;
     } else {
         alert('You don\t have enough money.');
+    }
+}
+
+function takeLoan() {
+    var quantities = document.querySelectorAll('[name="quantity"]');
+    var times = document.querySelectorAll('[name="time"]');
+    var quantity = 0;
+    var time = 0;
+
+    for (let i = 0; i < quantities.length; i++) {
+        (quantities[i].checked == true) ? quantity = parseInt(quantities[i].value) : null;
+    }
+
+    for (let i = 0; i < times.length; i++) {
+        (times[i].checked == true) ? time = parseInt(times[i].value) : null;
+    }
+
+    if (!(quantity && time)) {
+        alert('Please select a quantity and time.');
+        return;
+    } else {
+        if (loan == false) {
+            loan = true;
+            let returnAmount = quantity * 1.1;
+            money += quantity;
+            setTimeout(() => {
+                money -= returnAmount;
+                console.log('paid money');
+            }, time * 100);
+        } else {
+            alert('You can\'t have multiple loans at the same time.');
+        }
     }
 }
 
