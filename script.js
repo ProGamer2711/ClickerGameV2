@@ -24,7 +24,8 @@ var Shop = {
         startingCost: 100,
         moneyAdd: 75,
         income: 5,
-        element: document.querySelector('#workersDescription')
+        element: document.querySelector('#workersDescription'),
+        button: null
     },
 
     ClickUpgrades: {
@@ -32,7 +33,8 @@ var Shop = {
         cost: 150,
         startingCost: 150,
         moneyAdd: 150,
-        element: document.querySelector('#clickUpgradesDescription')
+        element: document.querySelector('#clickUpgradesDescription'),
+        button: null
     }, 
 
     SouvenirShops: {
@@ -124,39 +126,51 @@ function update() {
 
     Shop.ShoeShops.element.innerHTML = `Shoe shops give you 325 $ per second. They cost ${Shop.ShoeShops.cost} $. You currently have ${Shop.ShoeShops.count} shoes shops. This item must be unlocked.`;
 
-    if (Shop.Workers.count >= 10) {
-        Shop.SouvenirShops.button.disabled = false;
-    } else {
-        Shop.SouvenirShops.button.disabled = true;
-    }
-    if (Shop.SouvenirShops.count >= 10) {
-        Shop.BookStores.button.disabled = false;
-    } else {
-        Shop.BookStores.button.disabled = true;
-    }
-    if (Shop.BookStores.count >= 10) {
-        Shop.ClothesShops.button.disabled = false;
-    } else {
-        Shop.ClothesShops.button.disabled = true;
-    }
-    if (Shop.ClothesShops.count >= 10) {
-        Shop.GsmStores.button.disabled = false;
-    } else {
-        Shop.GsmStores.button.disabled = true;
-    }
-    if (Shop.GsmStores.count >= 10) {
-        Shop.ShoeShops.button.disabled = false;
-    } else {
-        Shop.ShoeShops.button.disabled = true;
+    // if (Shop.Workers.count >= 10) {
+    //     Shop.SouvenirShops.button.disabled = false;
+    // } else {
+    //     Shop.SouvenirShops.button.disabled = true;
+    // }
+    // if (Shop.SouvenirShops.count >= 10) {
+    //     Shop.BookStores.button.disabled = false;
+    // } else {
+    //     Shop.BookStores.button.disabled = true;
+    // }
+    // if (Shop.BookStores.count >= 10) {
+    //     Shop.ClothesShops.button.disabled = false;
+    // } else {
+    //     Shop.ClothesShops.button.disabled = true;
+    // }
+    // if (Shop.ClothesShops.count >= 10) {
+    //     Shop.GsmStores.button.disabled = false;
+    // } else {
+    //     Shop.GsmStores.button.disabled = true;
+    // }
+    // if (Shop.GsmStores.count >= 10) {
+    //     Shop.ShoeShops.button.disabled = false;
+    // } else {
+    //     Shop.ShoeShops.button.disabled = true;
+    // }
+    for (let i = 0; i < Object.values(Shop).length - 1; i++) {
+        if (i != 0 && i != 1) {
+            if (Object.values(Shop)[i].count >= 10) {
+                Object.values(Shop)[i+1].button.disabled = false;
+            } else {
+                Object.values(Shop)[i+1].button.disabled = true;
+            }
+        } else if (i == 1) {
+            if (Object.values(Shop)[i-1].count >= 10) {
+                Object.values(Shop)[i+1].button.disabled = false;
+            } else {
+                Object.values(Shop)[i+1].button.disabled = true;
+            }
+        }
     }
 
     if (!checkedCosts) {
-        Shop.Workers.cost = Shop.Workers.startingCost + Shop.Workers.count * Shop.Workers.moneyAdd;
-        Shop.SouvenirShops.cost = Shop.SouvenirShops.startingCost + Shop.SouvenirShops.count * Shop.SouvenirShops.moneyAdd;
-        Shop.BookStores.cost = Shop.BookStores.startingCost + Shop.BookStores.count * Shop.BookStores.moneyAdd;
-        Shop.ClothesShops.cost = Shop.ClothesShops.startingCost + Shop.ClothesShops.count * Shop.ClothesShops.moneyAdd;
-        Shop.GsmStores.cost = Shop.GsmStores.startingCost + Shop.GsmStores.count * Shop.GsmStores.moneyAdd;
-        Shop.ShoeShops.cost = Shop.ShoeShops.startingCost + Shop.ShoeShops.count * Shop.ShoeShops.moneyAdd;
+        for (let i = 0; i < Object.values(Shop).length; i++) {
+            Object.values(Shop)[i].cost = Object.values(Shop)[i].startingCost + Object.values(Shop)[i].count * Object.values(Shop)[i].moneyAdd;
+        }
         
         checkedCosts = true;
     }
