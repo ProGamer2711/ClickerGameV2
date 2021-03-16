@@ -125,6 +125,8 @@ function update() {
 
     Shop.ShoeShops.element.innerHTML = `Shoe shops give you 325 $ per second. They cost ${Shop.ShoeShops.cost} $. You currently have ${Shop.ShoeShops.count} shoes shops. This item must be unlocked.`;
 
+    rebirthDescription.innerHTML = `Rebirths take all your money upgrades and shops but they increase your money gain by 25 % than before. They cost ${rebirthCost} $.`;
+
     for (let i = 0; i < Object.values(Shop).length - 1; i++) {
         if (i != 0 && i != 1) {
             if (Object.values(Shop)[i].count >= 10) {
