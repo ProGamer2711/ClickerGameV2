@@ -168,7 +168,7 @@ function rebirth() {
         Shop.ClickUpgrades.count = 1;
         checkedCosts = false;
     } else {
-        alert('You don\t have enough money.');
+        alert('You don\'t have enough money.');
     }
 }
 
