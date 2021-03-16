@@ -203,7 +203,6 @@ function takeLoan() {
         }
     }
 }
-lol;
 
 // Initializing intervals
 var updateInterval = setInterval(update, 10);
