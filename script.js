@@ -14,6 +14,7 @@ var rebirthDescription = document.querySelector('#rebirthDescription');
 var checkedCosts = false;
 var user = null;
 var loan = false;
+var deposit = false;
 
 // Shop object
 var Shop = {
@@ -187,18 +188,45 @@ function takeLoan() {
     }
 
     if (!(quantity && time)) {
-        alert('Please select a quantity and time.');
+        alert('Please select a quantity and a time.');
         return;
     } else {
-        if (loan == false) {
+        if (deposit == false && loan == false) {
             loan = true;
             let returnAmount = quantity * 1.1;
             money += quantity;
             setTimeout(() => {
                 money -= returnAmount;
+                loan = false;
             }, time * 1000);
         } else {
-            alert('You can\'t have multiple loans at the same time.');
+            alert('You can\'t have multiple loans and deposits at the same time.');
+        }
+    }
+}
+
+function makeDeposit() {
+    var quantities = document.querySelectorAll('[name="quantityDeposit"]');
+    var quantity = 0;
+    var time = 300;
+
+    for (let i = 0; i < quantities.length; i++) {
+        (quantities[i].checked == true) ? quantity = parseInt(quantities[i].value) : null;
+    }
+
+    if (!quantity) {
+        alert('Please select a quantity.');
+    } else {
+        if (deposit == false && loan == false) {
+            deposit = true;
+            let returnAmount = quantity * 1.05;
+            money -= quantity;
+            setTimeout(() => {
+                money += returnAmount;
+                deposit = false;
+            }, time * 1000);
+        } else {
+            alert('You can\'t have multiple loans and deposits at the same time');
         }
     }
 }
