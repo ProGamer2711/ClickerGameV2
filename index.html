@@ -34,6 +34,7 @@
         <nav id="navigation">
             <a href="#loanDiv">Loans</a>
             <a href="#depositDiv">Deposits</a>
+            <a href="#gamblingDiv">Gambling</a>
             <a href="#rebirthDiv">Rebirths</a>
         </nav>
     </div>
@@ -156,6 +157,32 @@
     
         <button onclick="makeDeposit();">Deposit</button>
     
+    </div>
+
+    <hr>
+
+    <div id="gamblingDiv">
+        <p id="gamblingDescription">Gambling is a risky way you can either win or lose money. You try and guess a random number from one to seven and if you guess you win what you betted, doubled.
+            If you lose though, you lose the money you betted.
+        </p>
+        <form>
+            <label for="bet">Bet: </label><br>
+            <input type="radio" value="1000" name="bet">1 000 $<br>
+            <input type="radio" value="2000" name="bet">2 000 $<br>
+            <input type="radio" value="5000" name="bet">5 000 $<br>
+            <input type="radio" value="10000" name="bet">10 000 $<br>
+
+            <label for="guess">Guess: </label><br>
+            <input type="radio" value="1" name="guess">1<br>
+            <input type="radio" value="2" name="guess">2<br>
+            <input type="radio" value="3" name="guess">3<br>
+            <input type="radio" value="4" name="guess">4<br>
+            <input type="radio" value="5" name="guess">5<br>
+            <input type="radio" value="6" name="guess">6<br>
+            <input type="radio" value="7" name="guess">7<br>
+        </form>
+        
+        <button onclick="gamble();">Gamble</button>
     </div>
 
     <hr>
