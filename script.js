@@ -299,18 +299,6 @@ function gamble() {
         (guesses[i].checked == true) ? guess = parseInt(guesses[i].value) : null;
     }
 
-<<<<<<< HEAD
-function calculateMoneyPerSecond() {
-    let val = 0;
-    for (let i = 0; i < Object.values(Shop).length; i++) {
-        if (i === 1) continue;
-        val += Object.values(Shop)[i].count * Object.values(Shop)[i].income;
-    }
-    return val;
-}
-
-// Initializing intervals
-=======
     if (!(bet && guess)) {
         alert('Please select your bet and guess.');
     } else {
@@ -324,9 +312,17 @@ function calculateMoneyPerSecond() {
     }
 }
 
+function calculateMoneyPerSecond() {
+    let val = 0;
+    for (let i = 0; i < Object.values(Shop).length; i++) {
+        if (i === 1) continue;
+        val += Object.values(Shop)[i].count * Object.values(Shop)[i].income;
+    }
+    return val;
+}
+
 // Initializing intervals and running functions
 makeNav();
->>>>>>> changed
 var updateInterval = setInterval(update, 10);
 var moneyPerSecondInterval = setInterval(() => {
     money += moneyPerSecond;
