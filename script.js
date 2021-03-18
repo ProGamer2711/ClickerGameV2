@@ -110,7 +110,7 @@ function update() {
     moneyPercentageElement.innerHTML = `Money percentage: ${moneyPercentage * 100} %`;
 
     moneyPerClick = Shop.ClickUpgrades.count * moneyPercentage;
-    moneyPerClickElement.innerHTML = `Money per click: ${moneyPerClick}`;
+    moneyPerClickElement.innerHTML = `Money per click: ${moneyPerClick} $`;
     
     Shop.Workers.element.innerHTML = `Workers give you 5 $ per second. They cost ${Shop.Workers.cost} $. You currently have ${Shop.Workers.count} workers.`;
 
@@ -230,6 +230,62 @@ function makeDeposit() {
         }
     }
 }
+
+function getNavigationTags() {
+    var arr = Object.keys(Shop);
+    var splitted = [];
+    var returnArr = [];
+
+    arr.forEach(element => {
+        splitted.push(element.split('S'));
+    });
+    
+    for (let i = 0; i < splitted.length; i++) {
+        let el = splitted[i];
+        if (el[0] === '') {
+            el[1] = 'S' + el[1];
+            el.shift();
+        }
+        if (el.length > 1) {
+            let str = el[0].toLowerCase();
+            for (let j = 1; j < el.length; j++) {
+                if (j == el.length - 1) {
+                el[j] = 'S' + el[j];
+                str += el[j].substring(0, el[j].length - 1);
+                } else {
+                    el[j] = 'S' + el[j];
+                    str += el[j];
+                }
+            }
+            str += 'Div';
+            returnArr.push(str);
+        } else {
+            returnArr.push(el[0].toLowerCase().substring(0, el[0].length - 1) + 'Div');
+        }
+    }
+    
+    return returnArr;
+}
+
+function makeNav() {
+    var divs = getNavigationTags();
+    for (let i = 0; i < divs.length; i++) {
+        divs[i] = '#' + divs[i];
+    }
+
+    for (let i = 0; i < divs.length; i++) {
+        let a = document.createElement('a');
+        a.innerHTML = Object.keys(Shop)[i];
+        a.setAttribute('href', divs[i]);
+        document.querySelector('#navigation').appendChild(a);
+    }
+
+    let a = document.createElement('a');
+    a.setAttribute('id', 'special');
+    document.querySelector('#navigation').appendChild(a);
+}
+
+makeNav();
 
 // Initializing intervals
 var updateInterval = setInterval(update, 10);

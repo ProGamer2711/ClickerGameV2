@@ -9,9 +9,38 @@
 <body>
     <script>
         var arr = ['Workers', 'ClickUpgrades', 'SouvenirShops', 'BookStores', 'ClothesShops', 'GsmStores', 'ShoeShops'];
+        var splitted = [];
+        var returnArr = [];
+
         arr.forEach(element => {
-            console.log(element.split('S'));
+            splitted.push(element.split('S'));
         });
+        
+        for (let i = 0; i < splitted.length; i++) {
+            let el = splitted[i];
+            if (el[0] === '') {
+                el[1] = 'S' + el[1];
+                el.shift();
+            }
+            if (el.length > 1) {
+                let str = el[0].toLowerCase();
+                for (let j = 1; j < el.length; j++) {
+                    if (j == el.length - 1) {
+                    el[j] = 'S' + el[j];
+                    str += el[j].substring(0, el[j].length - 1);
+                    } else {
+                        el[j] = 'S' + el[j];
+                        str += el[j];
+                    }
+                }
+                str += 'Div';
+                returnArr.push(str);
+            } else {
+                returnArr.push(el[0].toLowerCase().substring(0, el[0].length - 1) + 'Div');
+            }
+        }
+
+        console.log(returnArr);
     </script>
 </body>
 </html>
