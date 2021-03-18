@@ -285,8 +285,21 @@ function makeNav() {
     document.querySelector('#navigation').appendChild(a);
 }
 
-makeNav();
+function gamble() {
+    var bets = document.querySelectorAll('[name="bet"]');
+    var guesses = document.querySelectorAll('[name="guess"]');
+    var bet = 0;
+    var guess = 0;
 
+    for (let i = 0; i < bets.length; i++) {
+        (bets[i].checked == true) ? bet = parseInt(bets[i].value) : null;
+    }
+
+    for (let i = 0; i < guesses.length; i++) {
+        (guesses[i].checked == true) ? guess = parseInt(guesses[i].value) : null;
+    }
+
+<<<<<<< HEAD
 function calculateMoneyPerSecond() {
     let val = 0;
     for (let i = 0; i < Object.values(Shop).length; i++) {
@@ -297,6 +310,23 @@ function calculateMoneyPerSecond() {
 }
 
 // Initializing intervals
+=======
+    if (!(bet && guess)) {
+        alert('Please select your bet and guess.');
+    } else {
+        if (Math.floor((Math.random() * 7) + 1) === guess) {
+            money += bet;
+            alert('You guessed right! You win!');
+        } else {
+            money -= bet;
+            alert('Your guess wasn\'t right. Try again.');
+        }
+    }
+}
+
+// Initializing intervals and running functions
+makeNav();
+>>>>>>> changed
 var updateInterval = setInterval(update, 10);
 var moneyPerSecondInterval = setInterval(() => {
     money += moneyPerSecond;
