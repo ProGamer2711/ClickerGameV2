@@ -173,8 +173,8 @@ function rebirth() {
 }
 
 function takeLoan() {
-    var quantities = document.querySelectorAll('[name="quantity"]');
-    var times = document.querySelectorAll('[name="time"]');
+    var quantities = document.querySelectorAll('[name="quantityLoan"]');
+    var times = document.querySelectorAll('[name="timeLoan"]');
     var quantity = 0;
     var time = 0;
 
@@ -196,8 +196,7 @@ function takeLoan() {
             money += quantity;
             setTimeout(() => {
                 money -= returnAmount;
-                console.log('paid money');
-            }, time * 100);
+            }, time * 1000);
         } else {
             alert('You can\'t have multiple loans at the same time.');
         }
