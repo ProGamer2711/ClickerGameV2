@@ -104,7 +104,7 @@ function buy(what) {
 function update() {
     moneyElement.innerHTML = `Your money: ${money} $`;
 
-    moneyPerSecond = (Shop.Workers.count * Shop.Workers.income + Shop.SouvenirShops.count * Shop.SouvenirShops.income + Shop.BookStores.count * Shop.BookStores.income + Shop.ClothesShops.count * Shop.ClothesShops.income + Shop.GsmStores.count * Shop.GsmStores.income + Shop.ShoeShops.count * Shop.ShoeShops.income) * moneyPercentage;
+    moneyPerSecond = calculateMoneyPerSecond() * moneyPercentage;
     moneyPerSecondElement.innerHTML = `Money per second: ${moneyPerSecond} $`;
 
     moneyPercentageElement.innerHTML = `Money percentage: ${moneyPercentage * 100} %`;
@@ -286,6 +286,15 @@ function makeNav() {
 }
 
 makeNav();
+
+function calculateMoneyPerSecond() {
+    let val = 0;
+    for (let i = 0; i < Object.values(Shop).length; i++) {
+        if (i === 1) continue;
+        val += Object.values(Shop)[i].count * Object.values(Shop)[i].income;
+    }
+    return val;
+}
 
 // Initializing intervals
 var updateInterval = setInterval(update, 10);
