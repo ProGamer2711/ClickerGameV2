@@ -67,14 +67,14 @@ var Shop = {
         button: document.querySelector('#clothesShopsButton')
     }, 
 
-    GsmStores: {
+    PhoneStores: {
         count: 0,
         cost: 20000,
         startingCost: 20000,
         moneyAdd: 12500,
         income: 250,
-        element: document.querySelector('#gsmStoresDescription'),
-        button: document.querySelector('#gsmStoresButton')
+        element: document.querySelector('#phoneStoresDescription'),
+        button: document.querySelector('#phoneStoresButton')
     },
 
     ShoeShops: {
@@ -122,7 +122,7 @@ function update() {
 
     Shop.ClothesShops.element.innerHTML = `Clothes shops give you 150 $ per second. They cost ${Shop.ClothesShops.cost} $. You currently have ${Shop.ClothesShops.count} clothes shops. This item must be unlocked.`;
     
-    Shop.GsmStores.element.innerHTML = `GSM stores give you 250 $ per second. They cost ${Shop.GsmStores.cost} $. You currently have ${Shop.GsmStores.count} GSM stores. This item must be unlocked.`;
+    Shop.PhoneStores.element.innerHTML = `Phone stores give you 250 $ per second. They cost ${Shop.PhoneStores.cost} $. You currently have ${Shop.PhoneStores.count} Phone stores. This item must be unlocked.`;
 
     Shop.ShoeShops.element.innerHTML = `Shoe shops give you 325 $ per second. They cost ${Shop.ShoeShops.cost} $. You currently have ${Shop.ShoeShops.count} shoes shops. This item must be unlocked.`;
 
