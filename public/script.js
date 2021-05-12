@@ -1,3 +1,7 @@
+// Delete session variables from session storage
+sessionStorage.removeItem('returnAmountLoan');
+sessionStorage.removeItem('returnAmountDeposit');
+
 // Main variables
 var money = 500000;
 var moneyPerClick = 1;
@@ -12,7 +16,7 @@ var moneyPercentageElement = document.querySelector('#moneyPercentage');
 var rebirthDescription = document.querySelector('#rebirthDescription');
 // Other
 var checkedCosts = false;
-var user = null;
+var username = null;
 var loan = false;
 var deposit = false;
 
@@ -35,7 +39,7 @@ var Shop = {
         moneyAdd: 150,
         element: document.querySelector('#clickUpgradesDescription'),
         button: null
-    }, 
+    },
 
     SouvenirShops: {
         count: 0,
@@ -45,7 +49,7 @@ var Shop = {
         income: 25,
         element: document.querySelector('#souvenirShopsDescritption'),
         button: document.querySelector('#souvenirShopsButton')
-    }, 
+    },
 
     BookStores: {
         count: 0,
@@ -55,7 +59,7 @@ var Shop = {
         income: 50,
         element: document.querySelector('#bookStoresDescription'),
         button: document.querySelector('#bookStoresButton')
-    }, 
+    },
 
     ClothesShops: {
         count: 0,
@@ -65,7 +69,7 @@ var Shop = {
         income: 150,
         element: document.querySelector('#clothesShopsDescription'),
         button: document.querySelector('#clothesShopsButton')
-    }, 
+    },
 
     PhoneStores: {
         count: 0,
@@ -111,7 +115,7 @@ function update() {
 
     moneyPerClick = Shop.ClickUpgrades.count * moneyPercentage;
     moneyPerClickElement.innerHTML = `Money per click: ${moneyPerClick} $`;
-    
+
     Shop.Workers.element.innerHTML = `Workers give you 5 $ per second. They cost ${Shop.Workers.cost} $. You currently have ${Shop.Workers.count} workers.`;
 
     Shop.ClickUpgrades.element.innerHTML = `Click upgrades give you more money per click. They cost ${Shop.ClickUpgrades.cost} $. You currently have ${Shop.ClickUpgrades.count} click upgrade.`;
@@ -121,7 +125,7 @@ function update() {
     Shop.BookStores.element.innerHTML = `Book stores give you 50 $ per second. They cost ${Shop.BookStores.cost} $. You currently have ${Shop.BookStores.count} book stores. This item must be unlocked.`;
 
     Shop.ClothesShops.element.innerHTML = `Clothes shops give you 150 $ per second. They cost ${Shop.ClothesShops.cost} $. You currently have ${Shop.ClothesShops.count} clothes shops. This item must be unlocked.`;
-    
+
     Shop.PhoneStores.element.innerHTML = `Phone stores give you 250 $ per second. They cost ${Shop.PhoneStores.cost} $. You currently have ${Shop.PhoneStores.count} Phone stores. This item must be unlocked.`;
 
     Shop.ShoeShops.element.innerHTML = `Shoe shops give you 325 $ per second. They cost ${Shop.ShoeShops.cost} $. You currently have ${Shop.ShoeShops.count} shoes shops. This item must be unlocked.`;
@@ -131,15 +135,15 @@ function update() {
     for (let i = 0; i < Object.values(Shop).length - 1; i++) {
         if (i != 0 && i != 1) {
             if (Object.values(Shop)[i].count >= 10) {
-                Object.values(Shop)[i+1].button.disabled = false;
+                Object.values(Shop)[i + 1].button.disabled = false;
             } else {
-                Object.values(Shop)[i+1].button.disabled = true;
+                Object.values(Shop)[i + 1].button.disabled = true;
             }
         } else if (i == 1) {
-            if (Object.values(Shop)[i-1].count >= 10) {
-                Object.values(Shop)[i+1].button.disabled = false;
+            if (Object.values(Shop)[i - 1].count >= 10) {
+                Object.values(Shop)[i + 1].button.disabled = false;
             } else {
-                Object.values(Shop)[i+1].button.disabled = true;
+                Object.values(Shop)[i + 1].button.disabled = true;
             }
         }
     }
@@ -148,7 +152,7 @@ function update() {
         for (let i = 0; i < Object.values(Shop).length; i++) {
             Object.values(Shop)[i].cost = Object.values(Shop)[i].startingCost + Object.values(Shop)[i].count * Object.values(Shop)[i].moneyAdd;
         }
-        
+
         checkedCosts = true;
     }
 }
@@ -173,19 +177,29 @@ function rebirth() {
     }
 }
 
-function takeLoan() {
+function takeLoan(quantityParam='abc', timeParam=0) {
     var quantities = document.querySelectorAll('[name="quantityLoan"]');
     var times = document.querySelectorAll('[name="timeLoan"]');
     var quantity = 0;
     var time = 0;
 
-    for (let i = 0; i < quantities.length; i++) {
-        (quantities[i].checked == true) ? quantity = parseInt(quantities[i].value) : null;
+    if (quantityParam === 0) {
+            return;
     }
 
-    for (let i = 0; i < times.length; i++) {
-        (times[i].checked == true) ? time = parseInt(times[i].value) : null;
+    if (!(quantityParam === 'abc' && timeParam === 0)) {
+        quantity = quantityParam;
+        time = timeParam;
+    } else {
+        for (let i = 0; i < quantities.length; i++) {
+            (quantities[i].checked == true) ? quantity = parseInt(quantities[i].value): null;
+        }
+    
+        for (let i = 0; i < times.length; i++) {
+            (times[i].checked == true) ? time = parseInt(times[i].value): null;
+        }
     }
+    
 
     if (!(quantity && time)) {
         alert('Please select a quantity and a time.');
@@ -193,38 +207,53 @@ function takeLoan() {
     } else {
         if (deposit == false && loan == false) {
             loan = true;
-            let returnAmount = quantity * 1.1;
+            let returnAmount = Math.round(quantity * 1.1);
+            sessionStorage.setItem('returnAmountLoan', returnAmount);
             money += quantity;
             setTimeout(() => {
                 money -= returnAmount;
                 loan = false;
-            }, time * 1000);
+                sessionStorage.removeItem('returnAmountLoan');
+            }, time * 100);
         } else {
             alert('You can\'t have multiple loans and deposits at the same time.');
         }
     }
 }
 
-function makeDeposit() {
+function makeDeposit(quantityParam='abc') {
     var quantities = document.querySelectorAll('[name="quantityDeposit"]');
     var quantity = 0;
     var time = 300;
 
-    for (let i = 0; i < quantities.length; i++) {
-        (quantities[i].checked == true) ? quantity = parseInt(quantities[i].value) : null;
+    if (quantityParam === 0) {
+        return;
+    }
+
+    if (quantityParam !== 'abc') {
+        quantity = quantityParam;
+    } else {
+        for (let i = 0; i < quantities.length; i++) {
+            (quantities[i].checked == true) ? quantity = parseInt(quantities[i].value): null;
+        }
     }
 
     if (!quantity) {
         alert('Please select a quantity.');
     } else {
         if (deposit == false && loan == false) {
-            deposit = true;
-            let returnAmount = quantity * 1.05;
-            money -= quantity;
-            setTimeout(() => {
-                money += returnAmount;
-                deposit = false;
-            }, time * 1000);
+            if (money >= quantity) {
+                deposit = true;
+                let returnAmount = quantity * 1.05;
+                sessionStorage.setItem('returnAmountDeposit', returnAmount);
+                money -= quantity;
+                setTimeout(() => {
+                    money += returnAmount;
+                    deposit = false;
+                }, time * 1000);
+            } else {
+                alert('You don\'t have enough money.');
+            }
         } else {
             alert('You can\'t have multiple loans and deposits at the same time');
         }
@@ -239,7 +268,7 @@ function getNavigationTags() {
     arr.forEach(element => {
         splitted.push(element.split('S'));
     });
-    
+
     for (let i = 0; i < splitted.length; i++) {
         let el = splitted[i];
         if (el[0] === '') {
@@ -250,8 +279,8 @@ function getNavigationTags() {
             let str = el[0].toLowerCase();
             for (let j = 1; j < el.length; j++) {
                 if (j == el.length - 1) {
-                el[j] = 'S' + el[j];
-                str += el[j].substring(0, el[j].length - 1);
+                    el[j] = 'S' + el[j];
+                    str += el[j].substring(0, el[j].length - 1);
                 } else {
                     el[j] = 'S' + el[j];
                     str += el[j];
@@ -263,7 +292,7 @@ function getNavigationTags() {
             returnArr.push(el[0].toLowerCase().substring(0, el[0].length - 1) + 'Div');
         }
     }
-    
+
     return returnArr;
 }
 
@@ -292,22 +321,26 @@ function gamble() {
     var guess = 0;
 
     for (let i = 0; i < bets.length; i++) {
-        (bets[i].checked == true) ? bet = parseInt(bets[i].value) : null;
+        (bets[i].checked == true) ? bet = parseInt(bets[i].value): null;
     }
 
     for (let i = 0; i < guesses.length; i++) {
-        (guesses[i].checked == true) ? guess = parseInt(guesses[i].value) : null;
+        (guesses[i].checked == true) ? guess = parseInt(guesses[i].value): null;
     }
 
     if (!(bet && guess)) {
         alert('Please select your bet and guess.');
     } else {
-        if (Math.floor((Math.random() * 7) + 1) === guess) {
-            money += bet;
-            alert('You guessed right! You win!');
+        if (money >= bet) {
+            if (Math.floor((Math.random() * 7) + 1) === guess) {
+                money += bet;
+                alert('You guessed right! You win!');
+            } else {
+                money -= bet;
+                alert('Your guess wasn\'t right. Try again.');
+            }
         } else {
-            money -= bet;
-            alert('Your guess wasn\'t right. Try again.');
+            alert('You don\'t have enough money.');
         }
     }
 }
@@ -319,6 +352,52 @@ function calculateMoneyPerSecond() {
         val += Object.values(Shop)[i].count * Object.values(Shop)[i].income;
     }
     return val;
+}
+
+function fillFormAndSubmit() {
+    let moneyFormEl = document.querySelector('[name="money"]');
+    let WorkersFormEl = document.querySelector('[name="Workers"]');
+    let ClickUpgradesFormEl = document.querySelector('[name="ClickUpgrades');
+    let SouvenirShopsFormEl = document.querySelector('[name="SouvenirShops"]');
+    let BookStoresFormEl = document.querySelector('[name="BookStores"]');
+    let ClothesShopsFormEl = document.querySelector('[name="ClothesShops"]');
+    let PhoneStoresFormEl = document.querySelector('[name="PhoneStores"]');
+    let ShoeShopsFormEl = document.querySelector('[name="ShoeShops"]');
+    let returnAmountLoanFormEl = document.querySelector('[name="returnAmountLoan"]');
+    let returnAmountDepositFormEl = document.querySelector('[name="returnAmountDeposit"]');
+    let usernameFormEl = document.querySelector('[name="username"]');
+    let formElements = [WorkersFormEl, ClickUpgradesFormEl, SouvenirShopsFormEl, BookStoresFormEl, ClothesShopsFormEl, PhoneStoresFormEl, ShoeShopsFormEl];
+
+    let returnAmountLoan = localStorage.getItem('returnAmountLoan');
+    let returnAmountDeposit = localStorage.getItem('returnAmountDeposit');
+
+    let button = document.querySelector('#sub');
+
+    keys = Object.keys(Shop);
+
+    for (let i = 0; i < keys.length; i++) {
+        formElements[i].value = JSON.stringify(Shop[keys[i]]);
+    }
+
+    moneyFormEl.value = money;
+
+    (returnAmountLoan) ? returnAmountLoanFormEl.value = returnAmountLoan : null;
+    (returnAmountDeposit) ? returnAmountDepositFormEl.value = returnAmount : null;
+
+    (username) ? usernameFormEl.value = username : null;
+
+    button.click();
+}
+
+function toggleForm() {
+    let saveButton = document.querySelector('#saveButton');
+    let mainDiv = document.querySelector('#main');
+    let saveForm = document.querySelector('#saveForm');
+    let otherButtons = document.querySelector('#other');
+    otherButtons.classList.toggle('hidden');
+    mainDiv.classList.toggle('hidden');
+    saveForm.classList.toggle('hidden');
+    (saveButton.innerHTML === 'Save Game') ? saveButton.innerHTML = 'Back To The Game': saveButton.innerHTML = 'Save Game';
 }
 
 // Initializing intervals and running functions

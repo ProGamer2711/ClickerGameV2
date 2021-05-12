@@ -1,4 +1,4 @@
-a {
+nav a {
     padding: 5px;
     text-decoration: none;
     color: rgb(100, 200, 0);
@@ -16,4 +16,8 @@ a {
 body {
     background-color: black;
     color: white;
+}
+
+.hidden {
+    display: none;
 }

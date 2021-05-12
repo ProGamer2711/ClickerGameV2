@@ -1,0 +1,22 @@
+<%- include('../partials/header', {
+    title: title,
+    stylesheet: stylesheet
+}); %>
+
+<script>
+    var params = [];
+</script>
+
+<% Object.keys(parameters).forEach(param => { %>
+    <p><%- parameters[param] %></p>
+    <script>params.push('<%- parameters[param] %>');</script>
+<% }) %>
+
+<script>
+    params.shift();
+    params.shift();
+    params.pop();
+    params.pop();
+</script>
+
+<%- include('../partials/footer'); %>
