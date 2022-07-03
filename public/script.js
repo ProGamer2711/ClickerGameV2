@@ -184,7 +184,7 @@ function takeLoan(quantityParam='abc', timeParam=0) {
     var time = 0;
 
     if (quantityParam === 0) {
-            return;
+        return;
     }
 
     if (!(quantityParam === 'abc' && timeParam === 0)) {
@@ -332,12 +332,13 @@ function gamble() {
         alert('Please select your bet and guess.');
     } else {
         if (money >= bet) {
-            if (Math.floor((Math.random() * 7) + 1) === guess) {
+			let number = Math.floor((Math.random() * 7) + 1);
+            if (number === guess) {
                 money += bet;
                 alert('You guessed right! You win!');
             } else {
                 money -= bet;
-                alert('Your guess wasn\'t right. Try again.');
+                alert(`Your guess wasn't right. The number was ${number}. Try again.`);
             }
         } else {
             alert('You don\'t have enough money.');

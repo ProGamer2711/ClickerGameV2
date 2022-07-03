@@ -2,7 +2,8 @@
 
 <div id="main">
   <div id="header">
-    <h1>Clicker Game V2 Beta</h1>
+    <img src="./cg2logo.png" draggable="false">
+    <h1>Clicker Game 2.0</h1>
     <p>
       Welcome, player. You have a retail bussines where you sell all kinds of
       stuff. From car parts and tech to books, clothes, trips etc. Your goal is
@@ -97,7 +98,7 @@
     </p>
 
     <button onclick="buy('PhoneStores');" id="phoneStoresButton" disabled>
-      Buy Phone store
+      Buy phone store
     </button>
   </div>
 
@@ -271,7 +272,7 @@
 <% try { %>
 
 <script>
-  var user = JSON.parse("<%- user %>");
+  var user = JSON.parse('<%- user %>');
   username = user.username;
   money = user.money; // Turn ejs value into string then back to int to not cause error.
   takeLoan(user?.returnAmountLoan || 0, 300);
@@ -286,6 +287,8 @@
       }
     });
   });
+
+  document.querySelector('[name="name"]').value = username;
 </script>
 
 <% } catch (e) { console.log(e); } %> <%- include("../partials/footer"); %>

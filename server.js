@@ -26,74 +26,10 @@ mongoose.connect(dbURI, {
 
 mongoose.set('useFindAndModify', false);
 
-var user;
-
 app.get('/', (req, res) => {
-    // var shop_object = JSON.stringify({
-    //     Workers: {
-    //         count: 0,
-    //         cost: 100,
-    //         startingCost: 100,
-    //         moneyAdd: 75,
-    //         income: 5
-    //     },
-
-    //     ClickUpgrades: {
-    //         count: 1,
-    //         cost: 150,
-    //         startingCost: 150,
-    //         moneyAdd: 150
-    //     }, 
-
-    //     SouvenirShops: {
-    //         count: 0,
-    //         cost: 4000,
-    //         startingCost: 4000,
-    //         moneyAdd: 2000,
-    //         income: 25
-    //     }, 
-
-    //     BookStores: {
-    //         count: 0,
-    //         cost: 9000,
-    //         startingCost: 9000,
-    //         moneyAdd: 4000,
-    //         income: 50
-    //     }, 
-
-    //     ClothesShops: {
-    //         count: 0,
-    //         cost: 14500,
-    //         startingCost: 14500,
-    //         moneyAdd: 8250,
-    //         income: 150
-    //     }, 
-
-    //     PhoneStores: {
-    //         count: 0,
-    //         cost: 20000,
-    //         startingCost: 20000,
-    //         moneyAdd: 12500,
-    //         income: 250
-    //     },
-
-    //     ShoeShops: {
-    //         count: 0,
-    //         cost: 25000,
-    //         startingCost: 25000,
-    //         moneyAdd: 15000,
-    //         income: 325
-    //     }
-    // });
-
     res.render('pages/index', {
-        title: "Clicker Game V2",
+        title: "Clicker Game 2.0",
         stylesheet: "./style.css"
-        // user: JSON.stringify({
-        //     shop_object: JSON.stringify(shop_object),
-        //     money: 0,
-        //     username: "Jeff"
-        // })
     });
 });
 
@@ -156,7 +92,7 @@ app.post('/add-user', (req, res) => {
             });
         } else if (profiles.length > 0) {
             res.render('pages/username-taken', {
-                title: "Clicker Game V2 Username Taken",
+                title: "Clicker Game 2.0 | Username Taken",
                 stylesheet: "./style.css"
             });
         } else {
@@ -180,7 +116,7 @@ app.post('/add-user', (req, res) => {
 
 app.get('/login', (req, res) => {
     res.render('pages/login', {
-        title: "Clicker Game V2 Login",
+        title: "Clicker Game 2.0 | Login",
         stylesheet: "./style.css"
     });
 });
@@ -197,7 +133,7 @@ app.get('/:id', async (req, res) => {
     let user = await Profile.findById(req.params.id);
 
     res.render('pages/index2', {
-        title: "Clicker Game V2",
+        title: `Clicker Game 2.0 | ${user.username}`,
         stylesheet: "style.css",
         user: JSON.stringify({
             username: user.username,

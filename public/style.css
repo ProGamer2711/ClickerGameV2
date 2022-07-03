@@ -1,23 +1,37 @@
 nav a {
     padding: 5px;
     text-decoration: none;
-    color: rgb(100, 200, 0);
-    border-left: 2px solid white;
+    color: rgb(255, 255, 255);
+    border-left: 2px solid rgb(255, 255, 255);
 }
 
 #special {
     padding: 5px;
     text-decoration: none;
-    color: rgb(100, 200, 0);
+    color: white;
     border-left: none;
-    border-right: 2px solid white;
+    border-right: 2px solid rgb(255, 255, 255);
 }
 
 body {
-    background-color: black;
-    color: white;
+    background-color: rgb(55, 55, 55);
+    color: #39E22F;
 }
 
 .hidden {
     display: none;
+}
+
+button {
+    background-color: #39E22F;
+    border: none;
+    border-radius: 5px;
+}
+
+button:disabled {
+    color: rgb(70, 70, 70);
+}
+
+hr {
+    color: rgb(255, 255, 255);
 }
